@@ -180,88 +180,150 @@ export const Registrations: React.FC = () => {
             </Button>
           </Box>
         ) : (
-          <TableContainer>
-            <Table sx={{ minWidth: 900 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Student</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>College</TableCell>
-                  <TableCell>Year</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Event</TableCell>
-                  <TableCell>Registered At</TableCell>
-                  <TableCell align="right">Details</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredRegistrations.map((reg) => (
-                  <TableRow key={reg.id} hover>
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+          <>
+            {/* Desktop / Tablet Table View */}
+            <TableContainer sx={{ width: '100%', maxWidth: '100%', overflowX: 'auto', display: { xs: 'none', md: 'block' } }}>
+              <Table sx={{ minWidth: 800 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Student</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>College</TableCell>
+                    <TableCell>Year</TableCell>
+                    <TableCell>Phone</TableCell>
+                    <TableCell>Event</TableCell>
+                    <TableCell>Registered At</TableCell>
+                    <TableCell align="right">Details</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredRegistrations.map((reg) => (
+                    <TableRow key={reg.id} hover>
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+                          {reg.name}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="body2" sx={{ color: '#475569', fontSize: '0.85rem' }}>
+                          {reg.email}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="body2" sx={{ color: '#64748B', fontSize: '0.85rem' }}>
+                          {reg.college}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Chip
+                          label={reg.year}
+                          size="small"
+                          sx={{
+                            backgroundColor: '#EEF2FF',
+                            color: '#4F46E5',
+                            fontWeight: 700,
+                            fontSize: '0.75rem',
+                          }}
+                        />
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="body2" sx={{ color: '#475569', fontSize: '0.85rem' }}>
+                          {reg.phone}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E293B', fontSize: '0.85rem' }}>
+                          {reg.events?.name || 'Associated Event'}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ py: 1.8 }}>
+                        <Typography variant="caption" sx={{ color: '#64748B' }}>
+                          {reg.created_at ? new Date(reg.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell align="right" sx={{ py: 1.8 }}>
+                        <Tooltip title="View Attendee Card">
+                          <IconButton
+                            size="small"
+                            onClick={() => setActiveReg(reg)}
+                            sx={{ color: '#4F46E5', backgroundColor: '#EEF2FF', '&:hover': { backgroundColor: '#E0E7FF' } }}
+                          >
+                            <Eye size={16} />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            {/* Mobile Cards View (< 768px) */}
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'column', gap: 2, p: 2 }}>
+              {filteredRegistrations.map((reg) => (
+                <Box
+                  key={reg.id}
+                  sx={{
+                    p: 2,
+                    borderRadius: 2.5,
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1.5,
+                  }}
+                >
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <Box>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A' }}>
                         {reg.name}
                       </Typography>
-                    </TableCell>
-
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="body2" sx={{ color: '#475569', fontSize: '0.85rem' }}>
+                      <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
                         {reg.email}
                       </Typography>
-                    </TableCell>
+                    </Box>
+                    <Chip
+                      label={reg.year}
+                      size="small"
+                      sx={{ backgroundColor: '#EEF2FF', color: '#4F46E5', fontWeight: 700, fontSize: '0.7rem' }}
+                    />
+                  </Box>
 
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="body2" sx={{ color: '#64748B', fontSize: '0.85rem' }}>
-                        {reg.college}
-                      </Typography>
-                    </TableCell>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, fontSize: '0.8rem', color: '#475569' }}>
+                    <Typography variant="caption">
+                      <strong>Event:</strong> {reg.events?.name || 'Associated Event'}
+                    </Typography>
+                    <Typography variant="caption">
+                      <strong>College:</strong> {reg.college}
+                    </Typography>
+                    <Typography variant="caption">
+                      <strong>Phone:</strong> {reg.phone}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#94A3B8' }}>
+                      Registered: {reg.created_at ? new Date(reg.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
+                    </Typography>
+                  </Box>
 
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Chip
-                        label={reg.year}
-                        size="small"
-                        sx={{
-                          backgroundColor: '#EEF2FF',
-                          color: '#4F46E5',
-                          fontWeight: 700,
-                          fontSize: '0.75rem',
-                        }}
-                      />
-                    </TableCell>
-
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="body2" sx={{ color: '#475569', fontSize: '0.85rem' }}>
-                        {reg.phone}
-                      </Typography>
-                    </TableCell>
-
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E293B', fontSize: '0.85rem' }}>
-                        {reg.events?.name || 'Associated Event'}
-                      </Typography>
-                    </TableCell>
-
-                    <TableCell sx={{ py: 1.8 }}>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>
-                        {reg.created_at ? new Date(reg.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
-                      </Typography>
-                    </TableCell>
-
-                    <TableCell align="right" sx={{ py: 1.8 }}>
-                      <Tooltip title="View Attendee Card">
-                        <IconButton
-                          size="small"
-                          onClick={() => setActiveReg(reg)}
-                          sx={{ color: '#4F46E5', backgroundColor: '#EEF2FF', '&:hover': { backgroundColor: '#E0E7FF' } }}
-                        >
-                          <Eye size={16} />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<Eye size={14} />}
+                    onClick={() => setActiveReg(reg)}
+                    sx={{ alignSelf: 'flex-end', borderRadius: 2 }}
+                  >
+                    View Details
+                  </Button>
+                </Box>
+              ))}
+            </Box>
+          </>
         )}
       </Card>
 

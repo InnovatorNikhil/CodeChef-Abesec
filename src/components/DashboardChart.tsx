@@ -32,9 +32,9 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({
   byEventData,
 }) => {
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 3, mb: 4 }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 3, mb: 4, width: '100%', minWidth: 0 }}>
       {/* Registrations Over Time */}
-      <Card sx={{ p: 2.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+      <Card sx={{ p: 2.5, borderRadius: 3.5, border: '1px solid #E2E8F0', minWidth: 0, width: '100%' }}>
         <CardContent sx={{ p: 0 }}>
           <Box sx={{ mb: 2.5 }}>
             <Typography variant="h6" sx={{ fontWeight: 700, color: '#0F172A', fontSize: '1.05rem' }}>
@@ -98,7 +98,7 @@ export const DashboardCharts: React.FC<DashboardChartsProps> = ({
       </Card>
 
       {/* Registrations by Event */}
-      <Card sx={{ p: 2.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+      <Card sx={{ p: 2.5, borderRadius: 3.5, border: '1px solid #E2E8F0', minWidth: 0, width: '100%' }}>
         <CardContent sx={{ p: 0 }}>
           <Box sx={{ mb: 2.5 }}>
             <Typography variant="h6" sx={{ fontWeight: 700, color: '#0F172A', fontSize: '1.05rem' }}>

@@ -92,7 +92,7 @@ export const AddEvent: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', pb: 8 }}>
+    <Box sx={{ width: '100%', maxWidth: 1050, mx: 'auto', pb: 8, boxSizing: 'border-box' }}>
       {/* Breadcrumb Navigation */}
       <Breadcrumbs sx={{ mb: 2.5, fontSize: '0.85rem' }}>
         <MuiLink component={Link} to="/admin/dashboard" underline="hover" color="inherit">
@@ -106,10 +106,19 @@ export const AddEvent: React.FC = () => {
         </Typography>
       </Breadcrumbs>
 
-      {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3.5 }}>
+      {/* Responsive Page Header */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: { xs: 'stretch', sm: 'center' },
+          justifyContent: 'space-between',
+          mb: 3.5,
+          gap: 2,
+        }}
+      >
         <Box>
-          <Typography variant="h3" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.025em' }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.025em', fontSize: { xs: '1.75rem', sm: '2.25rem' } }}>
             Create New Event
           </Typography>
           <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5 }}>
@@ -121,7 +130,7 @@ export const AddEvent: React.FC = () => {
           variant="outlined"
           startIcon={<ArrowLeft size={16} />}
           onClick={() => navigate('/admin/events')}
-          sx={{ borderRadius: 2 }}
+          sx={{ borderRadius: 2, alignSelf: { xs: 'flex-start', sm: 'center' } }}
         >
           Cancel
         </Button>
@@ -135,7 +144,7 @@ export const AddEvent: React.FC = () => {
 
       <Box component="form" onSubmit={handleSubmit} noValidate>
         {/* GROUP 1: Event Information */}
-        <Card sx={{ p: 3.5, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+        <Card sx={{ p: { xs: 2.5, sm: 3.5 }, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
           <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
             1. Event Information
           </Typography>
@@ -144,7 +153,7 @@ export const AddEvent: React.FC = () => {
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr' }, gap: 2.5 }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 2.5 }}>
               <TextField
                 fullWidth
                 label="Event Name"
@@ -196,7 +205,7 @@ export const AddEvent: React.FC = () => {
         </Card>
 
         {/* GROUP 2: Schedule & Venue */}
-        <Card sx={{ p: 3.5, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+        <Card sx={{ p: { xs: 2.5, sm: 3.5 }, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
           <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
             2. Schedule & Venue
           </Typography>
@@ -204,7 +213,7 @@ export const AddEvent: React.FC = () => {
             Specify the timeline, campus venue location, and room number.
           </Typography>
 
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr 1fr' }, gap: 2.5 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }, gap: 2.5 }}>
             <TextField
               fullWidth
               type="date"
@@ -237,13 +246,14 @@ export const AddEvent: React.FC = () => {
               onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
               error={!!errors.venue}
               helperText={errors.venue}
+              sx={{ gridColumn: { xs: 'span 1', sm: 'span 2', md: 'span 1' } }}
               required
             />
           </Box>
         </Card>
 
         {/* GROUP 3: Registration Settings */}
-        <Card sx={{ p: 3.5, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+        <Card sx={{ p: { xs: 2.5, sm: 3.5 }, mb: 3.5, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
           <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
             3. Registration Settings
           </Typography>
@@ -297,7 +307,7 @@ export const AddEvent: React.FC = () => {
         </Card>
 
         {/* GROUP 4: Display Settings & Banner */}
-        <Card sx={{ p: 3.5, mb: 4, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
+        <Card sx={{ p: { xs: 2.5, sm: 3.5 }, mb: 4, borderRadius: 3.5, border: '1px solid #E2E8F0' }}>
           <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
             4. Display Settings
           </Typography>
@@ -338,11 +348,18 @@ export const AddEvent: React.FC = () => {
         </Card>
 
         {/* Action Controls */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column-reverse', sm: 'row' },
+            justifyContent: 'flex-end',
+            gap: 2,
+          }}
+        >
           <Button
             variant="outlined"
             onClick={() => navigate('/admin/events')}
-            sx={{ px: 3, py: 1.2, borderRadius: 2.5 }}
+            sx={{ px: 3, py: 1.2, borderRadius: 2.5, width: { xs: '100%', sm: 'auto' } }}
           >
             Cancel
           </Button>
@@ -352,7 +369,7 @@ export const AddEvent: React.FC = () => {
             variant="contained"
             disabled={isSubmitting}
             startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : <Save size={18} />}
-            sx={{ px: 4, py: 1.2, fontWeight: 700, borderRadius: 2.5 }}
+            sx={{ px: 4, py: 1.2, fontWeight: 700, borderRadius: 2.5, width: { xs: '100%', sm: 'auto' } }}
           >
             {isSubmitting ? 'Creating Event...' : 'Create Event'}
           </Button>
